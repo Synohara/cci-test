@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:19.03.5-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Test
+          command: |
+            echo '--- ホストのグローバル IP アドレスを確認 ----------------------------'
+            apk add curl
+            curl httpbin.org/ip
+            echo '--- env で環境変数を確認 --------------------------------------------'
+            env
+            echo '--- docker ps が実行出来るか確認 ------------------------------------'
+            docker ps
